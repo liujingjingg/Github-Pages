@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    h1{
+        padding-left: 30px;
+    }
+    legend{
+        color: red;
+    }
+    fieldset{
+        width: 500px;
+        margin-left : 30px;
+    }
+    .f1{
+        margin-top: 30px;
+    }
+    span{
+        color: red;
+    }
+    .f2{
+        margin-left: 30px;
+        margin-top: 20px;
+    }
+</style>
+<body>
+    <h1>毕业生信息</h1>
+    <form id="testform" method="get" action="">
+    <fieldset>
+		<legend>
+			学生信息
+		</legend>
+        姓 名 <input type="text" name="name1" placeholder="请输入姓名" required  autofocus> <span>*</span> <br>
+        学 号 <input type="number" name="name1" placeholder="请输入学号" required> <span>*</span><br>
+        手 机 <input type="tel" name="name1" placeholder="请输入手机号"  required> <span>*</span><br>
+        邮 箱 <input type="email" name="name1" placeholder="请输入邮箱地址" required > <span>*</span>
+    </fieldset>
+    <fieldset class="f1">
+        <legend>
+            录取情况 
+        </legend>
+        录取学校 <input type="text" name="name1"><br>
+        入学成绩 <input type="number" name="name1" required ><br>
+        入学时间 <input type="date" name="name1" required >
+    </fieldset>
+    </form>
+    <input class="f2" type="submit" value="提交" form="testform"/>
+</body>
+</html>
