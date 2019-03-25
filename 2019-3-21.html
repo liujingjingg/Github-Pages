@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       * {
+  		    margin: 0;
+   			padding: 0;
+		}
+		body{
+			padding:50px 50px;
+		}
+        .center{
+            width: 350px;
+            height: 180px;
+        }
+        #serach{
+            width:190px;
+            height:40px;
+            border: 1px solid #e1af66; 
+        }
+        #sou{
+            width: 140px;
+            height: 35px;
+        }
+        #clear{
+            border: 1px solid white;
+            padding: 3px;
+            color: white;
+            background-color: #e0e0e0;
+            position: relative;
+            top: 70px;
+            left: 350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <input type="text" name="serach" id="serach" placeholder="请输入想查找的商品" >
+        <input type="button" value="搜索" id="sou"/>
+        <p>最近搜索</p>
+        <span id="clear">X</span>
+        <p id="clears"></p>
+    </div>
+</body>
+<script>
+    var serach = document.getElementById("serach");
+    var sousuo =document.getElementById("sou");
+    var clear= document.getElementById("clear");
+    sousuo.onclick=function(){
+        var data = serach.value;
+        var time = new Date().getTime();
+        localStorage.setItem(time, data);
+        loadStorage('clears');
+    }
+    function loadStorage(id){
+        var result = '';
+        for (var i = 0; i < localStorage.length; i++) {
+            var key= localStorage.key(i);
+            var value = localStorage.getItem(key);
+            var date = new Date();
+            date.setTime(key);
+            var datestr = date.toGMTString();
+            for(var j=0;j<localStorage.length;j++){
+                if(value===localStorage.getItem(localStorage.key(j)) && i!=j){
+                localStorage.removeItem(localStorage.key(j));
+                }
+            }
+            result +=value+'&nbsp'+'&nbsp';
+        }
+        var conter = document.getElementById(id);
+        conter.innerHTML = result;
+   }
+    
+    clear.onclick=function(){
+        localStorage.clear();
+        loadStorage('clears');
+    }
+</script>
+</html>
