@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid red;
+            position: absolute;
+        }
+        #content{
+            width: 200px;
+            height:100px;
+            color:red;
+            position: absolute;
+            text-align: center;
+            line-height: 100px;/*垂直居中*/
+            font-size:36px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <canvas id="canvas" width="200" height="100">
+	</canvas>
+</body>
+<script>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    window.onload = function () {
+        //内容种类
+        var con=['一等奖','二等奖','参与奖'];
+        var num=Math.floor(Math.random()*con.length);
+        var content=document.getElementById("content");
+        content.innerHTML=con[num];
+        //将原图像绘制到目标图像
+        context.fillStyle = "gray";
+        context.fillRect(0, 0, 200, 100);
+    }
+       // 刮奖
+        canvas.onmousedown=function(){
+                var x=event.clientX;
+                var y=event.clientY;
+                context.globalCompositeOperation="destination-out";
+                context.beginPath();
+                context.arc(x,y,10,0,Math.PI*2);
+                context.closePath();
+                context.fill();
+                canvas.onmousemove=function(){
+                    var x=event.clientX;
+                    var y=event.clientY;
+                    context.globalCompositeOperation="destination-out";
+                    context.beginPath();
+                    context.arc(x,y,10,0,Math.PI*2);
+                    context.closePath();
+                    context.fill();
+                //判断是否完成刮奖
+                var img=context.getImageData(0, 0, 200, 100);
+                var shang=0;
+                for (var i=0;i<img.data.length;i+=4) { 		
+                    var a=img.data[i+3];
+                    if(a<10){
+                      shang++;	
+                    } 			
+                }	
+                var p=shang/(img.data.length/4); 
+                if(p>0.85){
+                    context.fillRect(0,0,200,100);
+                    canvas.onmousemove=function(){
+                }
+            }
+        }
+        }
+        //鼠标抬起效果消失。
+        canvas.onmouseup=function(){
+        canvas.onmousemove=function(){
+        }
+    } 
+</Script>
+</html>
